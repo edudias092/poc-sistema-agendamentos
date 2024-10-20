@@ -36,7 +36,12 @@ steps:
   - task: DownloadSecureFile@1  # Baixar a chave privada no pipeline
     inputs:
       secureFile: 'id_rsa'  # Nome do arquivo secure
-
+  
+  - script: |
+      sudo apt-get update
+      sudo apt-get install -y openssl
+    displayName: 'Instalar OpenSSL'
+  
   - script: |
       mkdir -p ~/.ssh
       cp $(Agent.TempDirectory)/id_rsa ~/.ssh/id_rsa
