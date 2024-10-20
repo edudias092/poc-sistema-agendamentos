@@ -26,12 +26,16 @@ steps:
   - script: |
       dotnet build --configuration $(buildConfiguration)
     displayName: 'Build'
-    
+  
+  - script: |
+      dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+    displayName: 'Publish'
+
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: $(Build.ArtifactStagingDirectory)
       ArtifactName: 'drop'
-      publishLocation: 'Container'
+      #publishLocation: 'Container'
 
   - task: DownloadSecureFile@1  # Baixar a chave privada no pipeline
     inputs:
