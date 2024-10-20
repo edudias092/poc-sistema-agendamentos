@@ -16,7 +16,7 @@ steps:
   - task: UseDotNet@2
     inputs:
       packageType: 'sdk'
-      version: '8.x.x'
+      version: '8.0.303'
       installationPath: $(Agent.ToolsDirectory)/dotnet
 
   - script: |
@@ -32,4 +32,15 @@ steps:
       PathtoPublish: $(Build.ArtifactStagingDirectory)
       ArtifactName: 'drop'
 
-  
+  - task: DownloadSecureFile@1  # Baixar a chave privada no pipeline
+    inputs:
+      secureFile: 'id_rsa'  # Nome do arquivo secure
+
+  - script: |
+      mkdir -p ~/.ssh
+      cp $(Agent.TempDirectory)/id_rsa ~/.ssh/id_rsa
+      chmod 600 ~/.ssh/id_rsa
+
+      # Usar SCP para copiar os arquivos para o servidor VPS
+      scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -r $(Build.ArtifactStagingDirectory)/* root@207.244.247.46:/sistemas/sistema-agendamentos
+    displayName: 'Copiar arquivos para o VPS'
