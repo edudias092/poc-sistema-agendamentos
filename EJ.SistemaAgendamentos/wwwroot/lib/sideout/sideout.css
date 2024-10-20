@@ -1,0 +1,16 @@
+.sideout-menu {
+    position: absolute;
+    left: -264px;
+    top: 0;
+    z-index: 10;
+    width: 264px;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.sideout-open,
+.sideout-open body {
+    overflow: hidden;
+}

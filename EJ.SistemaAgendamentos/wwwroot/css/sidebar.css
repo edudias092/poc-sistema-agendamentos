@@ -1,0 +1,44 @@
+#sidebar {
+    display: none; /* Inicialmente oculto */
+    width: 33%;
+    max-width: fit-content;
+    height: 100%;
+    background-color: white;
+    padding: 20px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+    transform: translateX(100%); /* Desloca para fora da tela */
+    z-index: 999;
+}
+
+#sidebar.open {
+    display: block;
+    transform: translateX(0); /* Move para dentro da tela */
+    transition: transform 0.5s ease;
+
+    background: white;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    z-index: 888;
+}
+
+.overlay.active {
+    display: block;
+}
+
+#closeSidebar{
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    color: #999;
+}

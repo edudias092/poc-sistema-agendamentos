@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Sistema Agendamentos | Home";
+}
+
+<div class="py-2 text-right">
+    <a asp-action="Add" asp-controller="Agendamentos"
+       class="inline-block bg-indigo-500 text-white hover:bg-indigo-300 text-right text-sm px-4 py-2 leading-none border rounded hover:border-transparent mt-4 lg:mt-0">
+        Novo
+    </a>
+</div>
+<div id='calendar'></div>
+
+<div id="sidebar">
+    <div id="eventDetails"></div>
+    <button id="closeSidebar">X</button>
+</div>
+<div class="overlay" id="overlay"></div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sidebar/1.0.0/sidebar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/pt-br.js"></script>
+    <script src="~/js/calendario.js"></script>
+
+}

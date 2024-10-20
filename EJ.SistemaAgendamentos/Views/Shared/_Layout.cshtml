@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sidebar/1.0.0/sidebar.min.css">
+    <link rel="stylesheet" href="~/css/sidebar.css" />
+    <link rel="stylesheet" href="~/css/custom.css" />
+</head>
+<body class="">
+    @if(!ViewData.ContainsKey("hideHeader")){
+        <partial name="Partials/Header" />
+    }
+    <div class="container mx-auto">
+        @RenderBody()
+    </div>
+
+    @RenderSection("Scripts", false);
+</body>
+</html>
