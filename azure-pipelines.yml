@@ -1,0 +1,52 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- release/*
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '8.0.303'
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
+  - script: |
+      dotnet restore
+      dotnet ef database update
+    displayName: 'Restaurar pacotes Nuget e Executar migrations'
+    
+  - script: |
+      dotnet build --configuration $(buildConfiguration)
+    displayName: 'Build'
+  
+  - script: |
+      dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+    displayName: 'Publish'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: $(Build.ArtifactStagingDirectory)
+      ArtifactName: 'drop'
+      #publishLocation: 'Container'
+
+  - task: DownloadSecureFile@1  # Baixar a chave privada no pipeline
+    inputs:
+      secureFile: 'id_rsa'  # Nome do arquivo secure
+  
+  - script: |
+      mkdir -p ~/.ssh
+      cp $(Agent.TempDirectory)/id_rsa ~/.ssh/id_rsa
+      chmod 600 ~/.ssh/id_rsa
+
+      # Usar SCP para copiar os arquivos para o servidor VPS
+      scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -r $(Build.ArtifactStagingDirectory)/* root@207.244.247.46:/sistemas/sistema-agendamentos
+    displayName: 'Copiar arquivos para o VPS'
