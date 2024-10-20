@@ -31,6 +31,7 @@ steps:
     inputs:
       PathtoPublish: $(Build.ArtifactStagingDirectory)
       ArtifactName: 'drop'
+      publishLocation: 'Container'
 
   - task: DownloadSecureFile@1  # Baixar a chave privada no pipeline
     inputs:
