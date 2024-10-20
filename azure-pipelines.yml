@@ -13,5 +13,23 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '8.x.x'
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
+  - script: |
+      dotnet restore
+    displayName: 'Restaurar pacotes Nuget'
+    
+  - script: |
+      dotnet build --configuration $(buildConfiguration)
+    displayName: 'Build'
+    
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: $(Build.ArtifactStagingDirectory)
+      ArtifactName: 'drop'
+
+  
