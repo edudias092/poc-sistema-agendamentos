@@ -54,7 +54,6 @@ steps:
       mkdir -p ~/.ssh
       cp $(Agent.TempDirectory)/id_rsa ~/.ssh/id_rsa
       chmod 600 ~/.ssh/id_rsa
-
-      ssh -i ~/.ssh/id_rsa root@207.244.247.46
-      sudo systemctl restart sistema-agendamentos
+      
+      timeout 30s ssh -i ~/.ssh/id_rsa root@207.244.247.46 "sudo systemctl restart sistema-agendamentos --no-block"
     displayName: 'Reiniciar o Serviço'
