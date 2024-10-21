@@ -50,3 +50,8 @@ steps:
       # Usar SCP para copiar os arquivos para o servidor VPS
       scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -r $(Build.ArtifactStagingDirectory)/* root@207.244.247.46:/sistemas/sistema-agendamentos
     displayName: 'Copiar arquivos para o VPS'
+
+  - script: |
+      ssh -i ~/.ssh/id_rsa root@207.244.247.46
+      sudo systemctl restart sistema-agendamentos
+    displayName: ''Reiniciar o Serviço
