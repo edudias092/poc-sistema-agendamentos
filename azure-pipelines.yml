@@ -51,6 +51,10 @@ steps:
     displayName: 'Copiar arquivos para o VPS'
 
   - script: |
+      mkdir -p ~/.ssh
+      cp $(Agent.TempDirectory)/id_rsa ~/.ssh/id_rsa
+      chmod 600 ~/.ssh/id_rsa
+      
       ssh -i ~/.ssh/id_rsa root@207.244.247.46
       sudo systemctl restart sistema-agendamentos
     displayName: ''Reiniciar o Serviço
