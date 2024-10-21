@@ -14,10 +14,10 @@
     @if(!ViewData.ContainsKey("hideHeader")){
         <partial name="Partials/Header" />
     }
-    <div class="container mx-auto">
+    <div class="container mx-auto px-8">
         @RenderBody()
     </div>
 
-    @RenderSection("Scripts", false);
+    @RenderSection("Scripts", false)
 </body>
 </html>
