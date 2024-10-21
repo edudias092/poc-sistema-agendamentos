@@ -21,8 +21,7 @@ steps:
 
   - script: |
       dotnet restore
-      dotnet ef database update
-    displayName: 'Restaurar pacotes Nuget e Executar migrations'
+    displayName: 'Restaurar pacotes Nuget'
     
   - script: |
       dotnet build --configuration $(buildConfiguration)
