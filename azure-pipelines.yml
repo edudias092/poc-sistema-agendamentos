@@ -57,4 +57,4 @@ steps:
       
       ssh -i ~/.ssh/id_rsa root@207.244.247.46
       sudo systemctl restart sistema-agendamentos
-    displayName: ''Reiniciar o Serviço
+    displayName: 'Reiniciar o Serviço'
